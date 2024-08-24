@@ -2,6 +2,8 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types';
+
 
 export const Todo = ({task, deleteTodo, editTodo, toggleComplete}) => {
   return (
@@ -14,3 +16,15 @@ export const Todo = ({task, deleteTodo, editTodo, toggleComplete}) => {
     </div>
   )
 }
+
+Todo.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    task: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired
+  }).isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  toggleComplete: PropTypes.func.isRequired
+};

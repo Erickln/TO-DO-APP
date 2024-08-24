@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types';
 
 export const EditTodoForm = ({editTodo, task}) => {
     const [value, setValue] = useState(task.task);
@@ -16,3 +17,11 @@ export const EditTodoForm = ({editTodo, task}) => {
   </form>
   )
 }
+
+EditTodoForm.propTypes = {
+  editTodo: PropTypes.func.isRequired,
+  task: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    task: PropTypes.string.isRequired
+  }).isRequired
+};
