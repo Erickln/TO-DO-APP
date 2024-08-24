@@ -3,7 +3,6 @@ import { TodoForm } from './TodoForm'
 import { v4 as uuidv4 } from 'uuid';
 import { Todo } from './Todo';
 import { EditTodoForm } from './EditTodoForm';
-import PropTypes from 'prop-types';
 uuidv4();
 
 export const TodoWrapperLocalStorage = () => {
@@ -55,13 +54,4 @@ export const TodoWrapperLocalStorage = () => {
          
     </div>
   )
-}
-
-TodoWrapperLocalStorage.propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        task: PropTypes.string.isRequired,
-        completed: PropTypes.bool.isRequired,
-        isEditing: PropTypes.bool.isRequired
-    })).isRequired
 }

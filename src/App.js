@@ -1,10 +1,16 @@
-import './App.css';
+// src/App.js
+import React from 'react';
 import { TodoWrapper } from './components/TodoWrapper';
 
 function App() {
   return (
-    <div className="App">
-      <TodoWrapper  />
+    <div className="container">
+      <div className="row">
+        <div className="col s12 m8 offset-m2">
+          <h1 className="center-align white-text">Get Things Done!</h1>
+          <TodoWrapper />
+        </div>
+      </div>
     </div>
   );
 }

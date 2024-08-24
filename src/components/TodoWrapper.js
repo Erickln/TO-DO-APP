@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Todo } from "./Todo";
-import { TodoForm } from "./TodoForm";
-import { v4 as uuidv4 } from "uuid";
-import { EditTodoForm } from "./EditTodoForm";
+// src/components/TodoWrapper.js
+import React, { useState, useEffect } from 'react';
+import { Todo } from './Todo';
+import { TodoForm } from './TodoForm';
+import { v4 as uuidv4 } from 'uuid';
+import { EditTodoForm } from './EditTodoForm';
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    console.log("Initial Load from localStorage:", savedTodos); // Debugging log
     return savedTodos;
   });
 
   useEffect(() => {
-    console.log("Saving todos to localStorage:", todos); // Debugging log
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
@@ -51,23 +50,23 @@ export const TodoWrapper = () => {
   };
 
   return (
-    <div className="TodoWrapper">
-      <h1>Get Things Done!</h1>
+    <div className="section">
       <TodoForm addTodo={addTodo} />
-      {/* display todos */}
-      {todos.map((todo) =>
-        todo.isEditing ? (
-          <EditTodoForm editTodo={editTask} task={todo} key={todo.id} />
-        ) : (
-          <Todo
-            key={todo.id}
-            task={todo}
-            deleteTodo={deleteTodo}
-            editTodo={editTodo}
-            toggleComplete={toggleComplete}
-          />
-        )
-      )}
+      <div className="row">
+        {todos.map((todo) =>
+          todo.isEditing ? (
+            <EditTodoForm editTodo={editTask} task={todo} key={todo.id} />
+          ) : (
+            <Todo
+              key={todo.id}
+              task={todo}
+              deleteTodo={deleteTodo}
+              editTodo={editTodo}
+              toggleComplete={toggleComplete}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 };
