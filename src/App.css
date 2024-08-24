@@ -26,9 +26,10 @@ h1 {
 
 .TodoWrapper {
   background: rgb(39, 39, 65);
+  border-radius: 20px;
+  padding: 3rem;
   margin-top: 5rem;
-  padding: 2rem;
-  border-radius: 5px;
+  width: 600px;
 }
 
 .TodoForm {
