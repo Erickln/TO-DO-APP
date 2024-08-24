@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 export const EditTodoForm = ({ editTodo, task }) => {
   const [value, setValue] = useState(task.task);
+  const [startDate, setStartDate] = useState(task.startDate);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editTodo(value, task.id);
+    editTodo({ task: value, startDate: startDate }, task.id);
   };
 
   return (
@@ -15,14 +16,20 @@ export const EditTodoForm = ({ editTodo, task }) => {
       <div className="input-field">
         <input
           type="text"
-          id={`edit-todo-${task.id}`}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className="validate"
         />
-        <label htmlFor={`edit-todo-${task.id}`} className="active">
-          Update task
-        </label>
+        <label className="active">Update task</label>
+      </div>
+      <div className="input-field">
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className="validate"
+        />
+        <label className="active">Update start date</label>
       </div>
       <button type="submit" className="btn waves-effect waves-light">
         Save
@@ -36,5 +43,8 @@ EditTodoForm.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
     task: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    startDate: PropTypes.string, // No requerido
   }).isRequired,
 };

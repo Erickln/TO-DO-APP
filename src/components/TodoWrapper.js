@@ -5,20 +5,26 @@ import { TodoForm } from './TodoForm';
 import { v4 as uuidv4 } from 'uuid';
 import { EditTodoForm } from './EditTodoForm';
 
+import PropTypes from 'prop-types';
+
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    return savedTodos;
+    return savedTodos.map(todo => ({
+      ...todo,
+      startDate: todo.startDate || new Date().toISOString().split('T')[0] // Valor predeterminado si falta
+    }));
   });
+  
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = (todo) => {
+  const addTodo = (task, startDate) => {
     const newTodos = [
       ...todos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false },
+      { id: uuidv4(), task: task, startDate: startDate, completed: false, isEditing: false },
     ];
     setTodos(newTodos);
   };
@@ -44,10 +50,11 @@ export const TodoWrapper = () => {
 
   const editTask = (task, id) => {
     const newTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
+      todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: !todo.isEditing } : todo
     );
     setTodos(newTodos);
   };
+  
 
   return (
     <div className="section">
@@ -69,4 +76,17 @@ export const TodoWrapper = () => {
       </div>
     </div>
   );
+};
+
+EditTodoForm.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    task: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    startDate: PropTypes.string,
+  }).isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  toggleComplete: PropTypes.func.isRequired,
 };
