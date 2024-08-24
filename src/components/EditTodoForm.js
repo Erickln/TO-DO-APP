@@ -19,6 +19,8 @@ export const EditTodoForm = ({ editTodo, task }) => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           className="validate"
+          placeholder="Update task"
+          style={{ color: '#ffffff' }} // White text color
         />
         <label className="active">Update task</label>
       </div>
@@ -28,6 +30,8 @@ export const EditTodoForm = ({ editTodo, task }) => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
+          placeholder="Update task"
+          style={{ color: '#ffffff' }} // White text color
         />
         <label className="active">Update start date</label>
       </div>
@@ -45,6 +49,6 @@ EditTodoForm.propTypes = {
     task: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
     isEditing: PropTypes.bool.isRequired,
-    startDate: PropTypes.string, // No requerido
+    startDate: PropTypes.string, // Not required
   }).isRequired,
 };

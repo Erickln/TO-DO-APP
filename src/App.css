@@ -2,20 +2,122 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
-  font-family: 'verdana', sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body, .container {
+  font-size: 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 1200px;
+}
+
 body {
-  background: #b5b8c4;
+  background: #0a1f44; /* Dark blue tone */
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  width: 100%;
 }
 
-.completed {
-  text-decoration: line-through;
-  color: #220b5e;
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) grayscale(100%) brightness(100%) contrast(100%);
 }
+
+
+.card {
+  background-color: #294881; /* Slightly lighter dark blue for task cards */
+  border-radius: 13px;
+  box-shadow: 0 4px 6px rgba(235, 197, 197, 0.1);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.btn {
+  background-color: #1b6ec0; /* Bright blue for buttons */
+  color: #ffffff;
+  /* Put the button on the right without floating */
+  
+  margin-left: 80%;
+  
+  
+  border-radius: 13px;
+
+  font-size: 1rem; /* Adjust button font size */
+}
+
+.todo-wrapper {
+  width: 100%; /* Ensure the wrapper uses full width available */
+  max-width: none; /* Remove any max-width constraints */
+  margin: 0 auto; /* Center the wrapper horizontally */
+  padding: 20px; /* Add some padding inside the wrapper */
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* src/App.css */
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons {
+  display: flex;
+  color: #ffffff; /* Match the card text color */
+}
+
+.icons .btn-flat {
+  margin-left: 10px; /* Add space between icons if needed */
+  color: #ffffff;
+}
+
+/* src/App.css */
+
+.form-input {
+  font-size: 1.2rem; /* Match the card font size */
+  color: #ffffff; /* Match the card text color */
+}
+
+.form-input input[type="date"] {
+  color: #ffffff; /* Match the card text color for date input */
+}
+
+.btn-save {
+  background-color: #1b6ec0; /* Match the button color */
+  color: #ffffff; /* Match the button text color */
+  border-radius: 13px;
+  font-size: 1rem; /* Match button font size */
+}
+
+/* src/App.css */
+
+textarea::placeholder {
+  font-size: 1.4rem; /* Match font size with textarea */
+  color: #ffffff; /* Match font color with textarea */
+}
+
+/* Add these styles to src/App.css */
+
+/* Style for the EditTodoForm to match card styling */
+.edit-todo-form {
+  background-color: #294881; /* Match the card background color */
+  color: #ffffff; /* White text color */
+  border-radius: 13px;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 1.2rem; /* Match the font size of the cards */
+}
+
+/* Increase the size of the placeholder text as the text is added */
+input::placeholder {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+

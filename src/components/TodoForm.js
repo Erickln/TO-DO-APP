@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 
 export const TodoForm = ({ addTodo }) => {
   const [value, setValue] = useState('');
-  const [startDate, setStartDate] = useState(() => {
-    // Inicializa con la fecha actual en formato YYYY-MM-DD
-    return new Date().toISOString().split('T')[0];
-  });
+  const [startDate, setStartDate] = useState(() => new Date().toISOString().split('T')[0]);
   const textareaRef = useRef(null);
 
   const handleSubmit = (e) => {
@@ -15,25 +12,17 @@ export const TodoForm = ({ addTodo }) => {
     if (value && startDate) {
       addTodo(value, startDate);
       setValue('');
-      setStartDate(new Date().toISOString().split('T')[0]); // Restablece la fecha a la actual después de enviar
-      console.log(value, startDate);
+      setStartDate(new Date().toISOString().split('T')[0]);
     } else {
       console.log("Both task and start date are required.");
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Evita que la tecla Enter añada un salto de línea en el textarea
-      handleSubmit(e);
     }
   };
 
   const handleTextareaChange = (e) => {
     setValue(e.target.value);
     const textarea = textareaRef.current;
-    textarea.style.height = 'auto'; // Reset height
-    textarea.style.height = `${textarea.scrollHeight}px`; // Adjust height based on content
+    textarea.style.height = 'auto'; 
+    textarea.style.height = `${textarea.scrollHeight}px`; 
   };
 
   return (
@@ -44,7 +33,7 @@ export const TodoForm = ({ addTodo }) => {
           id="todo-input"
           value={value}
           onChange={handleTextareaChange}
-          onKeyPress={handleKeyPress} // Agregar el manejador de tecla
+          onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
           className="validate"
           placeholder="What is the task today?"
           style={{
@@ -52,6 +41,8 @@ export const TodoForm = ({ addTodo }) => {
             minHeight: '100px',
             boxSizing: 'border-box',
             overflow: 'hidden',
+            fontSize: '1.4rem',
+            color: 'white',
           }}
         />
       </div>
@@ -62,7 +53,10 @@ export const TodoForm = ({ addTodo }) => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
-          style={{ width: '150px' }}
+          style={{ width: '100%',
+            fontSize: '1.4rem',
+            color: 'white',
+           }}
         />
       </div>
       <button type="submit" className="btn waves-effect waves-light">
