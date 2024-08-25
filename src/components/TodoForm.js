@@ -1,4 +1,3 @@
-// src/components/TodoForm.js
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
@@ -21,8 +20,8 @@ export const TodoForm = ({ addTodo }) => {
   const handleTextareaChange = (e) => {
     setValue(e.target.value);
     const textarea = textareaRef.current;
-    textarea.style.height = 'auto'; 
-    textarea.style.height = `${textarea.scrollHeight}px`; 
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   return (
@@ -43,21 +42,31 @@ export const TodoForm = ({ addTodo }) => {
             overflow: 'hidden',
             fontSize: '1.4rem',
             color: 'white',
+            backgroundColor: '#1f2a48',
+            padding: '10px',
+            borderRadius: '8px',
           }}
         />
+        <label htmlFor="todo-input" className="active">Task Description</label>
       </div>
-      <div className="input-field">
+      <div className="input-field" style={{ marginBottom: '20px' }}>
         <input
           type="date"
           id="todo-start-date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
-          style={{ width: '100%',
+          style={{
+            width: 'calc(100%)', 
             fontSize: '1.4rem',
             color: 'white',
-           }}
+            backgroundColor: '#1f2a48',
+            padding: '10px',
+            borderRadius: '8px',
+            boxSizing: 'border-box', 
+          }}
         />
+        <label htmlFor="todo-start-date" className="active">Start Date</label>
       </div>
       <button type="submit" className="btn waves-effect waves-light">
         Add Task
