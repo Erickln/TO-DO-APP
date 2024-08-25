@@ -5,8 +5,6 @@ import { TodoForm } from './TodoForm';
 import { v4 as uuidv4 } from 'uuid';
 import { EditTodoForm } from './EditTodoForm';
 
-import PropTypes from 'prop-types';
-
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
@@ -16,7 +14,6 @@ export const TodoWrapper = () => {
     }));
   });
   
-
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
@@ -54,10 +51,33 @@ export const TodoWrapper = () => {
     );
     setTodos(newTodos);
   };
-  
+
+  const markAsDone = (id) => {
+    const newTodos = todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, completed: true, doneDate: new Date().toISOString().split('T')[0] }
+        : todo
+    );
+
+    // Move the completed task to the end
+    const doneTask = newTodos.find(todo => todo.id === id);
+    const otherTasks = newTodos.filter(todo => todo.id !== id);
+    setTodos([...otherTasks, doneTask]);
+  };
+
+  const markAsUndone = (id) => {
+    const newTodos = todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, completed: false, doneDate: null }
+        : todo
+    );
+
+    // Move the undone task back to its original position
+    setTodos(newTodos);
+  };
 
   return (
-    <div className="todo-wrapper">
+    <div className="section">
       <TodoForm addTodo={addTodo} />
       <div className="row">
         {todos.map((todo) =>
@@ -70,23 +90,12 @@ export const TodoWrapper = () => {
               deleteTodo={deleteTodo}
               editTodo={editTodo}
               toggleComplete={toggleComplete}
+              markAsDone={markAsDone}
+              markAsUndone={markAsUndone}
             />
           )
         )}
       </div>
     </div>
   );
-};
-
-EditTodoForm.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    task: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    isEditing: PropTypes.bool.isRequired,
-    startDate: PropTypes.string,
-  }).isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  editTodo: PropTypes.func.isRequired,
-  toggleComplete: PropTypes.func.isRequired,
 };

@@ -121,3 +121,14 @@ input::placeholder {
   color: #ffffff;
 }
 
+/* src/App.css */
+.completed {
+  text-decoration: line-through;
+  color: #c0c4cf; /* Optional: A lighter color for completed tasks */
+}
+
+/* src/App.css */
+.date-text {
+  font-size: 0.9rem; /* Adjust this value as needed */
+  color: #b0b3c1; /* Optional: A slightly lighter color for dates */
+}
