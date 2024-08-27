@@ -41,52 +41,29 @@ export const Todo = ({
       onDoubleClick={handleDoubleClick} // Reintroducing double-click event
     >
       <div className="card-content white-text">
-        <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex' }}>
+        <div style={{ position: 'absolute', bottom: '10px', right: '10px', display: 'flex' }}>
           {task.completed ? (
-            <button
-              className="btn-flat"
-              onClick={(e) => {
-                handleButtonClick(e);
-                markAsUndone(task.id);
-              }}
-              style={{ marginLeft: '10px' }}
-            >
+            <button className="btn-flat" onClick={(e) => { handleButtonClick(e); markAsUndone(task.id); }} style={{ marginLeft: '10px' }}>
               <FontAwesomeIcon icon={faUndo} />
             </button>
           ) : (
-            <button
-              className="btn-flat"
-              onClick={(e) => {
-                handleButtonClick(e);
-                markAsDone(task.id);
-              }}
-              style={{ marginLeft: '10px' }}
-            >
+            <button className="btn-flat" onClick={(e) => { handleButtonClick(e); markAsDone(task.id); }} style={{ marginLeft: '10px' }}>
               <FontAwesomeIcon icon={faCheckCircle} />
             </button>
           )}
-          <button
-            className="btn-flat"
-            onClick={(e) => {
-              handleButtonClick(e);
-              editTodo(task.id);
-            }}
-            style={{ marginLeft: '10px' }}
-          >
+          <button className="btn-flat" onClick={(e) => { handleButtonClick(e); editTodo(task.id); }} style={{ marginLeft: '10px' }}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>
-          <button
-            className="btn-flat"
-            onClick={(e) => {
-              handleButtonClick(e);
-              deleteTodo(task.id);
-            }}
-            style={{ marginLeft: '10px' }}
-          >
+          <button className="btn-flat" onClick={(e) => { handleButtonClick(e); deleteTodo(task.id); }} style={{ marginLeft: '10px' }}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
-        <p className={task.completed ? 'completed' : 'incompleted'}>{task.task}</p>
+        <p
+          className={task.completed ? 'completed' : 'incompleted'}
+          style={{ marginRight: 'auto' }}
+        >
+          {task.task}
+        </p>
         <p className="date-text">Start Date: {task.startDate}</p>
         {task.completed && <p className="date-text">Done Date: {task.doneDate}</p>}
       </div>

@@ -61,6 +61,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .icons .btn-flat {
   margin-left: 10px;
+  margin-bottom: 10px;
   color: #ffffff;
 }
 
@@ -74,13 +75,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #ffffff;
 }
 
-/* Save Button Styling */
-.btn-save {
-  background-color: #1b6ec0;
-  color: #ffffff;
-  border-radius: 13px;
-  font-size: 1rem;
-}
 
 /* Apply a max-width and max-height to the textarea */
 textarea {
@@ -148,7 +142,7 @@ input::placeholder {
 .card-content p {
   word-wrap: break-word; /* Forces long words to break and wrap to the next line */
   white-space: pre-wrap; /* Preserves whitespace and wraps text */
-  overflow-wrap: anywhere; /* Allows words to break at any point if needed */
+  word-break: break-word; /* Allows words to break at any point if needed */
   overflow: hidden;
   text-overflow: ellipsis; /* Truncate with ellipsis if the text is too long */
 }
