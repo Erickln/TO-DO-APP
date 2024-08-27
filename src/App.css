@@ -143,3 +143,12 @@ input::placeholder {
   border: 2px dashed #1b6ec0;
   margin-bottom: 56px; /* Increased margin to show space for the dragged item */
 }
+
+/* Task description styling */
+.card-content p {
+  word-wrap: break-word; /* Forces long words to break and wrap to the next line */
+  white-space: pre-wrap; /* Preserves whitespace and wraps text */
+  overflow-wrap: anywhere; /* Allows words to break at any point if needed */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Truncate with ellipsis if the text is too long */
+}

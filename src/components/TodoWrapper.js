@@ -14,12 +14,11 @@ export const TodoWrapper = () => {
       startDate: todo.startDate || new Date().toISOString().split('T')[0], // Default start date if missing
     }));
   });
-  
+
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  // Function to add a new task
   const addTodo = (task, startDate) => {
     const newTodos = [
       ...todos,
@@ -28,13 +27,11 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Function to delete a task
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
-  // Function to toggle the completion status of a task
   const toggleComplete = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -42,7 +39,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Function to toggle the edit mode of a task
   const editTodo = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
@@ -50,7 +46,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Function to edit the details of a task
   const editTask = (task, id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: false } : todo
@@ -58,7 +53,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Function to mark a task as done and set the done date
   const markAsDone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
@@ -68,7 +62,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Function to mark a task as undone and clear the done date
   const markAsUndone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
@@ -78,7 +71,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Function to cancel all edit modes when clicking outside
   const cancelAllEdits = () => {
     const newTodos = todos.map((todo) => ({
       ...todo,
@@ -87,11 +79,32 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Default no-op functions for drag and drop
-  const handleDragStart = () => {};
-  const handleDragOver = () => {};
-  const handleDragLeave = () => {};
-  const handleDrop = () => {};
+  const handleDragStart = (e, id) => {
+    e.dataTransfer.setData("text/plain", id);
+    console.log(`Dragging todo with id: ${id}`);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    console.log('Dragging over a todo');
+  };
+
+  const handleDrop = (e, id) => {
+    e.preventDefault();
+    const draggedTodoId = e.dataTransfer.getData("text/plain");
+    const draggedTodoIndex = todos.findIndex((todo) => todo.id === draggedTodoId);
+    const targetTodoIndex = todos.findIndex((todo) => todo.id === id);
+
+    if (draggedTodoIndex !== -1 && targetTodoIndex !== -1) {
+      const updatedTodos = [...todos];
+      const [draggedTodo] = updatedTodos.splice(draggedTodoIndex, 1);
+      updatedTodos.splice(targetTodoIndex, 0, draggedTodo);
+
+      setTodos(updatedTodos);
+      localStorage.setItem('todos', JSON.stringify(updatedTodos));
+      console.log('Todos reordered:', updatedTodos);
+    }
+  };
 
   return (
     <div className="section" onClick={cancelAllEdits} style={{ cursor: 'default' }}>
@@ -111,9 +124,8 @@ export const TodoWrapper = () => {
               markAsUndone={markAsUndone}
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
               onDrop={handleDrop}
-              isHovered={false} // Provide a default value for isHovered
+              draggable
             />
           )
         )}

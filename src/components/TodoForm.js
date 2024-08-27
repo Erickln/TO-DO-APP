@@ -17,11 +17,17 @@ export const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (value && startDate) {
+      // if values is just a set of " " then task is not added
+      if(value.trim() === "") {
+        console.log("Task is empty");
+        alert("Task is empty");
+        return;
+      }
       addTodo(value, startDate); // Add task with provided details
       setValue(''); // Reset task description
       setStartDate(new Date().toISOString().split('T')[0]); // Reset start date to today
     } else {
-      console.log("Both task and start date are required.");
+      alert("Both task and start date are required.");
     }
   };
 
