@@ -4,15 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faCheckCircle, faUndo } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-// Todo component: Displays a task card with various actions
-export const Todo = ({ task, deleteTodo, editTodo, toggleComplete, markAsDone, markAsUndone }) => {
+export const Todo = ({ task, deleteTodo, editTodo, toggleComplete, markAsDone, markAsUndone, onDragStart, onDragOver, onDragLeave, onDrop, isHovered }) => {
   return (
-    // Card container with dynamic class based on task completion status
-    <div className={`card ${task.completed ? 'blue-grey darken-1' : 'blue accent-2'}`} style={{ position: 'relative' }}>
+    <div
+      className={`card ${task.completed ? 'blue-grey darken-1' : 'blue accent-2'} ${isHovered ? 'card-over' : ''}`}
+      style={{ position: 'relative', cursor: 'move' }}
+      draggable
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+    >
       <div className="card-content white-text">
-        {/* Action buttons container */}
         <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex' }}>
-          {/* Conditional rendering of mark as done/undone button */}
           {task.completed ? (
             <button className="btn-flat" onClick={() => markAsUndone(task.id)} style={{ marginLeft: '10px' }}>
               <FontAwesomeIcon icon={faUndo} />
@@ -22,16 +26,13 @@ export const Todo = ({ task, deleteTodo, editTodo, toggleComplete, markAsDone, m
               <FontAwesomeIcon icon={faCheckCircle} />
             </button>
           )}
-          {/* Edit task button */}
           <button className="btn-flat" onClick={() => editTodo(task.id)} style={{ marginLeft: '10px' }}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>
-          {/* Delete task button */}
           <button className="btn-flat" onClick={() => deleteTodo(task.id)} style={{ marginLeft: '10px' }}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
-        {/* Task description with toggle complete on click */}
         <p
           className={task.completed ? 'completed' : 'incompleted'}
           onClick={() => toggleComplete(task.id)}
@@ -39,9 +40,7 @@ export const Todo = ({ task, deleteTodo, editTodo, toggleComplete, markAsDone, m
         >
           {task.task}
         </p>
-        {/* Display start date of the task */}
         <p className="date-text">Start Date: {task.startDate}</p>
-        {/* Conditional rendering of done date if task is completed */}
         {task.completed && <p className="date-text">Done Date: {task.doneDate}</p>}
       </div>
     </div>
@@ -55,11 +54,16 @@ Todo.propTypes = {
     completed: PropTypes.bool.isRequired,
     isEditing: PropTypes.bool.isRequired,
     startDate: PropTypes.string.isRequired,
-    doneDate: PropTypes.string, // Optional done date
+    doneDate: PropTypes.string,
   }).isRequired,
   deleteTodo: PropTypes.func.isRequired,
   editTodo: PropTypes.func.isRequired,
   toggleComplete: PropTypes.func.isRequired,
   markAsDone: PropTypes.func.isRequired,
   markAsUndone: PropTypes.func.isRequired,
+  onDragStart: PropTypes.func.isRequired,
+  onDragOver: PropTypes.func.isRequired,
+  onDragLeave: PropTypes.func.isRequired,
+  onDrop: PropTypes.func.isRequired,
+  isHovered: PropTypes.bool.isRequired,
 };

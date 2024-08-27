@@ -5,12 +5,6 @@ import { TodoForm } from './TodoForm';
 import { v4 as uuidv4 } from 'uuid';
 import { EditTodoForm } from './EditTodoForm';
 
-/**
- * TodoWrapper Component
- * 
- * This component manages the state of the TODO list, including adding, editing,
- * deleting, marking tasks as done or undone, and storing them in local storage.
- */
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
@@ -19,13 +13,14 @@ export const TodoWrapper = () => {
       startDate: todo.startDate || new Date().toISOString().split('T')[0], // Default start date if missing
     }));
   });
+  
+  const [draggedTodoId, setDraggedTodoId] = useState(null);
+  const [hoveredTodoId, setHoveredTodoId] = useState(null);
 
-  // Save todos to local storage whenever they change
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  // Add a new task
   const addTodo = (task, startDate) => {
     const newTodos = [
       ...todos,
@@ -34,13 +29,11 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Delete a task
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
-  // Toggle the completion status of a task
   const toggleComplete = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -48,7 +41,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Toggle the editing state of a task
   const editTodo = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
@@ -56,7 +48,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Edit the details of a task
   const editTask = (task, id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: !todo.isEditing } : todo
@@ -64,7 +55,6 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  // Mark a task as done and move it to the end of the list
   const markAsDone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
@@ -72,13 +62,11 @@ export const TodoWrapper = () => {
         : todo
     );
 
-    // Move the completed task to the end
     const doneTask = newTodos.find(todo => todo.id === id);
     const otherTasks = newTodos.filter(todo => todo.id !== id);
     setTodos([...otherTasks, doneTask]);
   };
 
-  // Mark a task as undone and keep it in its original position
   const markAsUndone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
@@ -86,6 +74,34 @@ export const TodoWrapper = () => {
         : todo
     );
     setTodos(newTodos);
+  };
+
+  const onDragStart = (id) => {
+    setDraggedTodoId(id);
+  };
+
+  const onDragOver = (event, id) => {
+    event.preventDefault();
+    if (id !== draggedTodoId) {
+      setHoveredTodoId(id);
+    }
+  };
+
+  const onDragLeave = () => {
+    setHoveredTodoId(null);
+  };
+
+  const onDrop = (droppedId) => {
+    const draggedTodoIndex = todos.findIndex(todo => todo.id === draggedTodoId);
+    const droppedTodoIndex = todos.findIndex(todo => todo.id === droppedId);
+
+    const reorderedTodos = [...todos];
+    const [draggedTodo] = reorderedTodos.splice(draggedTodoIndex, 1);
+    reorderedTodos.splice(droppedTodoIndex, 0, draggedTodo);
+
+    setTodos(reorderedTodos);
+    setDraggedTodoId(null);
+    setHoveredTodoId(null);
   };
 
   return (
@@ -104,6 +120,11 @@ export const TodoWrapper = () => {
               toggleComplete={toggleComplete}
               markAsDone={markAsDone}
               markAsUndone={markAsUndone}
+              onDragStart={() => onDragStart(todo.id)}
+              onDragOver={(event) => onDragOver(event, todo.id)}
+              onDragLeave={onDragLeave}
+              onDrop={() => onDrop(todo.id)}
+              isHovered={hoveredTodoId === todo.id}
             />
           )
         )}

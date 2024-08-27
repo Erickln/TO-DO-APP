@@ -30,16 +30,6 @@ body {
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) grayscale(100%) brightness(100%) contrast(100%);
 }
-
-/* Card Styling */
-.card {
-  background-color: #294881; /* Darker blue for cards */
-  border-radius: 13px;
-  box-shadow: 0 4px 6px rgba(235, 197, 197, 0.1);
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-}
-
 /* Button Styling */
 .btn {
   background-color: #1b6ec0;
@@ -124,4 +114,23 @@ input::placeholder {
 .date-text {
   font-size: 0.9rem;
   color: #b0b3c1;
+}
+
+.card {
+  background-color: #294881;
+  border-radius: 13px;
+  box-shadow: 0 4px 6px rgba(235, 197, 197, 0.1);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.card:active {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(235, 197, 197, 0.2);
+}
+
+.card-over {
+  border: 2px dashed #1b6ec0;
+  margin-bottom: 56px; /* Increased margin to show space for the dragged item */
 }
