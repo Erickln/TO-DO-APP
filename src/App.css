@@ -82,12 +82,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: 1rem;
 }
 
-/* Textarea Placeholder Styling */
-textarea::placeholder {
+/* Apply a max-width and max-height to the textarea */
+textarea {
+  width: 100%;
+  min-height: 100px;
+  max-width: 100%; /* Prevents from exceeding the container's width */
+  max-height: 300px; /* Adjust this value based on how much you want to allow expansion */
+  box-sizing: border-box;
+  overflow: hidden;
   font-size: 1.4rem;
-  color: #ffffff;
+  color: white;
+  background-color: #1f2a48;
+  padding: 10px;
+  border-radius: 8px;
+  resize: vertical; /* Allow only vertical resizing */
 }
-
 /* Edit Todo Form Styling */
 .edit-todo-form {
   background-color: #294881;

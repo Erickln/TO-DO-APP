@@ -85,5 +85,5 @@ export const TodoForm = ({ addTodo }) => {
 };
 
 TodoForm.propTypes = {
-  addTodo: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired, // Function to add a new task
 };

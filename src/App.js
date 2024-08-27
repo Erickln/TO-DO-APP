@@ -2,6 +2,12 @@
 import React from 'react';
 import { TodoWrapper } from './components/TodoWrapper';
 
+/**
+ * App Component
+ * 
+ * The root component of the application. It renders the TodoWrapper component,
+ * which manages the state and logic of the entire Todo application.
+ */
 function App() {
   return (
     <div className="container">

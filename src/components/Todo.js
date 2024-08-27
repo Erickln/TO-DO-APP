@@ -4,7 +4,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faCheckCircle, faUndo } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-export const Todo = ({ task, deleteTodo, editTodo, toggleComplete, markAsDone, markAsUndone, onDragStart, onDragOver, onDragLeave, onDrop, isHovered }) => {
+/**
+ * Todo Component
+ * 
+ * This component represents a single task in the Todo list. It provides functionalities
+ * to edit, delete, mark as done/undone, and drag-and-drop reordering of tasks.
+ */
+export const Todo = ({ task, deleteTodo, editTodo, markAsDone, markAsUndone, onDragStart, onDragOver, onDragLeave, onDrop, isHovered }) => {
+
+  // Handle the double-click event to toggle done/undone and update the doneDate
+  const handleDoubleClick = () => {
+    if (task.completed) {
+      markAsUndone(task.id);
+    } else {
+      markAsDone(task.id);
+    }
+  };
+
+  // Prevent event propagation when clicking buttons
+  const handleButtonClick = (e) => {
+    e.stopPropagation(); // Prevents click events from bubbling up to parent elements
+  };
+
   return (
     <div
       className={`card ${task.completed ? 'blue-grey darken-1' : 'blue accent-2'} ${isHovered ? 'card-over' : ''}`}
@@ -14,28 +35,56 @@ export const Todo = ({ task, deleteTodo, editTodo, toggleComplete, markAsDone, m
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
+      onDoubleClick={handleDoubleClick} // Add double-click event to the entire card
     >
       <div className="card-content white-text">
         <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex' }}>
           {task.completed ? (
-            <button className="btn-flat" onClick={() => markAsUndone(task.id)} style={{ marginLeft: '10px' }}>
+            <button
+              className="btn-flat"
+              onClick={(e) => {
+                handleButtonClick(e);
+                markAsUndone(task.id);
+              }}
+              style={{ marginLeft: '10px' }}
+            >
               <FontAwesomeIcon icon={faUndo} />
             </button>
           ) : (
-            <button className="btn-flat" onClick={() => markAsDone(task.id)} style={{ marginLeft: '10px' }}>
+            <button
+              className="btn-flat"
+              onClick={(e) => {
+                handleButtonClick(e);
+                markAsDone(task.id);
+              }}
+              style={{ marginLeft: '10px' }}
+            >
               <FontAwesomeIcon icon={faCheckCircle} />
             </button>
           )}
-          <button className="btn-flat" onClick={() => editTodo(task.id)} style={{ marginLeft: '10px' }}>
+          <button
+            className="btn-flat"
+            onClick={(e) => {
+              handleButtonClick(e);
+              editTodo(task.id);
+            }}
+            style={{ marginLeft: '10px' }}
+          >
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>
-          <button className="btn-flat" onClick={() => deleteTodo(task.id)} style={{ marginLeft: '10px' }}>
+          <button
+            className="btn-flat"
+            onClick={(e) => {
+              handleButtonClick(e);
+              deleteTodo(task.id);
+            }}
+            style={{ marginLeft: '10px' }}
+          >
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
         <p
           className={task.completed ? 'completed' : 'incompleted'}
-          onClick={() => toggleComplete(task.id)}
           style={{ marginRight: 'auto' }}
         >
           {task.task}
@@ -56,14 +105,13 @@ Todo.propTypes = {
     startDate: PropTypes.string.isRequired,
     doneDate: PropTypes.string,
   }).isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  editTodo: PropTypes.func.isRequired,
-  toggleComplete: PropTypes.func.isRequired,
-  markAsDone: PropTypes.func.isRequired,
-  markAsUndone: PropTypes.func.isRequired,
-  onDragStart: PropTypes.func.isRequired,
-  onDragOver: PropTypes.func.isRequired,
-  onDragLeave: PropTypes.func.isRequired,
-  onDrop: PropTypes.func.isRequired,
-  isHovered: PropTypes.bool.isRequired,
+  deleteTodo: PropTypes.func.isRequired, // Function to delete the task
+  editTodo: PropTypes.func.isRequired, // Function to toggle the edit mode
+  markAsDone: PropTypes.func.isRequired, // Function to mark the task as done
+  markAsUndone: PropTypes.func.isRequired, // Function to mark the task as undone
+  onDragStart: PropTypes.func.isRequired, // Function to handle drag start
+  onDragOver: PropTypes.func.isRequired, // Function to handle drag over
+  onDragLeave: PropTypes.func.isRequired, // Function to handle drag leave
+  onDrop: PropTypes.func.isRequired, // Function to handle drop
+  isHovered: PropTypes.bool.isRequired, // Boolean to determine if the task is being hovered
 };

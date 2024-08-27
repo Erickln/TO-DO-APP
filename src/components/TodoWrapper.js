@@ -1,4 +1,5 @@
 // src/components/TodoWrapper.js
+
 import React, { useState, useEffect } from 'react';
 import { Todo } from './Todo';
 import { TodoForm } from './TodoForm';
@@ -14,13 +15,11 @@ export const TodoWrapper = () => {
     }));
   });
   
-  const [draggedTodoId, setDraggedTodoId] = useState(null);
-  const [hoveredTodoId, setHoveredTodoId] = useState(null);
-
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
+  // Function to add a new task
   const addTodo = (task, startDate) => {
     const newTodos = [
       ...todos,
@@ -29,11 +28,13 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Function to delete a task
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
+  // Function to toggle the completion status of a task
   const toggleComplete = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -41,6 +42,7 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Function to toggle the edit mode of a task
   const editTodo = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
@@ -48,25 +50,25 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Function to edit the details of a task
   const editTask = (task, id) => {
     const newTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: !todo.isEditing } : todo
+      todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: false } : todo
     );
     setTodos(newTodos);
   };
 
+  // Function to mark a task as done and set the done date
   const markAsDone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
         ? { ...todo, completed: true, doneDate: new Date().toISOString().split('T')[0] }
         : todo
     );
-
-    const doneTask = newTodos.find(todo => todo.id === id);
-    const otherTasks = newTodos.filter(todo => todo.id !== id);
-    setTodos([...otherTasks, doneTask]);
+    setTodos(newTodos);
   };
 
+  // Function to mark a task as undone and clear the done date
   const markAsUndone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
@@ -76,38 +78,25 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
-  const onDragStart = (id) => {
-    setDraggedTodoId(id);
+  // Function to cancel all edit modes when clicking outside
+  const cancelAllEdits = () => {
+    const newTodos = todos.map((todo) => ({
+      ...todo,
+      isEditing: false,
+    }));
+    setTodos(newTodos);
   };
 
-  const onDragOver = (event, id) => {
-    event.preventDefault();
-    if (id !== draggedTodoId) {
-      setHoveredTodoId(id);
-    }
-  };
-
-  const onDragLeave = () => {
-    setHoveredTodoId(null);
-  };
-
-  const onDrop = (droppedId) => {
-    const draggedTodoIndex = todos.findIndex(todo => todo.id === draggedTodoId);
-    const droppedTodoIndex = todos.findIndex(todo => todo.id === droppedId);
-
-    const reorderedTodos = [...todos];
-    const [draggedTodo] = reorderedTodos.splice(draggedTodoIndex, 1);
-    reorderedTodos.splice(droppedTodoIndex, 0, draggedTodo);
-
-    setTodos(reorderedTodos);
-    setDraggedTodoId(null);
-    setHoveredTodoId(null);
-  };
+  // Default no-op functions for drag and drop
+  const handleDragStart = () => {};
+  const handleDragOver = () => {};
+  const handleDragLeave = () => {};
+  const handleDrop = () => {};
 
   return (
-    <div className="section">
+    <div className="section" onClick={cancelAllEdits} style={{ cursor: 'default' }}>
       <TodoForm addTodo={addTodo} />
-      <div className="row">
+      <div className="row" onClick={(e) => e.stopPropagation()}>
         {todos.map((todo) =>
           todo.isEditing ? (
             <EditTodoForm editTodo={editTask} task={todo} key={todo.id} />
@@ -120,11 +109,11 @@ export const TodoWrapper = () => {
               toggleComplete={toggleComplete}
               markAsDone={markAsDone}
               markAsUndone={markAsUndone}
-              onDragStart={() => onDragStart(todo.id)}
-              onDragOver={(event) => onDragOver(event, todo.id)}
-              onDragLeave={onDragLeave}
-              onDrop={() => onDrop(todo.id)}
-              isHovered={hoveredTodoId === todo.id}
+              onDragStart={handleDragStart}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              isHovered={false} // Provide a default value for isHovered
             />
           )
         )}
