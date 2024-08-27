@@ -1,28 +1,60 @@
 // src/components/EditTodoForm.js
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * EditTodoForm Component
+ * 
+ * This component allows users to edit an existing TODO task. It includes a textarea
+ * for editing the task's description and a date input for changing the start date of the task.
+ */
 export const EditTodoForm = ({ editTodo, task }) => {
-  const [value, setValue] = useState(task.task);
-  const [startDate, setStartDate] = useState(task.startDate);
+  const [value, setValue] = useState(task.task); // Task description state
+  const [startDate, setStartDate] = useState(task.startDate); // Task start date state
+  const textareaRef = useRef(null); // Reference to the textarea element
 
+  // Adjust the height of the textarea on mount and when the value changes
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [value]);
+
+  // Adjust textarea height based on content
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = 'auto'; // Reset height to auto
+    textarea.style.height = `${textarea.scrollHeight}px`; // Adjust height based on scrollHeight
+  };
+
+  // Handle changes in the textarea
+  const handleTextareaChange = (e) => {
+    setValue(e.target.value); // Update task description
+    adjustTextareaHeight(); // Adjust the textarea height
+  };
+
+  // Handle form submission to save the edited task
   const handleSubmit = (e) => {
-    e.preventDefault();
-    editTodo({ task: value, startDate: startDate }, task.id);
+    e.preventDefault(); // Prevent default form submission
+    editTodo({ task: value, startDate: startDate }, task.id); // Save edited task details
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-field">
-        <input
-          type="text"
+        <textarea
+          ref={textareaRef}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleTextareaChange}
           className="validate"
           placeholder="Update task"
-          style={{ color: '#ffffff' }} // White text color
+          style={{
+            width: '100%',
+            minHeight: '100px',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+            fontSize: '1.4rem',
+            color: 'white',
+          }}
         />
-        <label className="active">Update task</label>
       </div>
       <div className="input-field">
         <input
@@ -30,10 +62,8 @@ export const EditTodoForm = ({ editTodo, task }) => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
-          placeholder="Update task"
-          style={{ color: '#ffffff' }} // White text color
+          style={{ width: '100%', fontSize: '1.4rem', color: 'white' }}
         />
-        <label className="active">Update start date</label>
       </div>
       <button type="submit" className="btn waves-effect waves-light">
         Save
@@ -43,12 +73,10 @@ export const EditTodoForm = ({ editTodo, task }) => {
 };
 
 EditTodoForm.propTypes = {
-  editTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired, // Function to edit the task
   task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    task: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    isEditing: PropTypes.bool.isRequired,
-    startDate: PropTypes.string, // Not required
+    id: PropTypes.string.isRequired, // Task ID
+    task: PropTypes.string.isRequired, // Task description
+    startDate: PropTypes.string.isRequired, // Start date
   }).isRequired,
 };

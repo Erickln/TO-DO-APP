@@ -1,22 +1,31 @@
+// src/components/TodoForm.js
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * TodoForm Component
+ * 
+ * This component allows users to add a new TODO task. It includes a textarea for
+ * task description and a date input for setting the start date.
+ */
 export const TodoForm = ({ addTodo }) => {
   const [value, setValue] = useState('');
-  const [startDate, setStartDate] = useState(() => new Date().toISOString().split('T')[0]);
+  const [startDate, setStartDate] = useState(() => new Date().toISOString().split('T')[0]); // Default to today's date
   const textareaRef = useRef(null);
 
+  // Handle form submission to add a new task
   const handleSubmit = (e) => {
     e.preventDefault();
     if (value && startDate) {
-      addTodo(value, startDate);
-      setValue('');
-      setStartDate(new Date().toISOString().split('T')[0]);
+      addTodo(value, startDate); // Add task with provided details
+      setValue(''); // Reset task description
+      setStartDate(new Date().toISOString().split('T')[0]); // Reset start date to today
     } else {
       console.log("Both task and start date are required.");
     }
   };
 
+  // Handle changes in the textarea
   const handleTextareaChange = (e) => {
     setValue(e.target.value);
     const textarea = textareaRef.current;
@@ -32,7 +41,7 @@ export const TodoForm = ({ addTodo }) => {
           id="todo-input"
           value={value}
           onChange={handleTextareaChange}
-          onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+          onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)} // Submit on Enter key press
           className="validate"
           placeholder="What is the task today?"
           style={{
@@ -57,13 +66,13 @@ export const TodoForm = ({ addTodo }) => {
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
           style={{
-            width: 'calc(100%)', 
+            width: '100%',
             fontSize: '1.4rem',
             color: 'white',
             backgroundColor: '#1f2a48',
             padding: '10px',
             borderRadius: '8px',
-            boxSizing: 'border-box', 
+            boxSizing: 'border-box',
           }}
         />
         <label htmlFor="todo-start-date" className="active">Start Date</label>

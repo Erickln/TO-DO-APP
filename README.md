@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# TODO App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple yet functional TODO application designed to manage individual tasks. The application allows users to add, edit, and delete tasks, mark tasks as completed or undone, and store them locally using the browser's local storage. The UI is responsive, intuitive, and styled using Materialize CSS.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Add Tasks**: Users can add new tasks with a description and a start date.
+- **Edit Tasks**: Users can edit existing tasks, including changing the task description and start date.
+- **Delete Tasks**: Users can delete tasks that are no longer needed.
+- **Mark as Done**: Users can mark tasks as completed, which will move them to the end of the list and display the date they were completed.
+- **Mark as Undone**: Completed tasks can be marked as undone, returning them to their original position in the list.
+- **Responsive Design**: The application is responsive and works well on different screen sizes.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: The project is built using React, a popular JavaScript library for building user interfaces.
+- **Materialize CSS**: The UI is styled using Materialize CSS, a modern responsive front-end framework based on Material Design.
+- **FontAwesome**: Icons are provided by FontAwesome, a widely used icon library.
+- **ESLint**: The project uses ESLint for maintaining consistent code style and catching errors early.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+Follow the steps below to set up and run the project on your local machine.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+Ensure you have the following installed:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Node.js** (v12 or later)
+- **npm** (v6 or later) or **yarn**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the repository:**
 
-### `npm run eject`
+```git clone https://github.com/yourusername/todo-app.git```
+2. **Navigate to the project directory:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```cd todo-app```
+3. **Install the dependencies:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```npm install```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+or 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```yarn install```
 
-## Learn More
+### Running the Project
+1. **Start the development server:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```npm start```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+or 
 
-### Code Splitting
+```yarn start```
+2. **Open your browser and go to:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```http://localhost:3000```
 
-### Analyzing the Bundle Size
+The TODO App should be running and accessible from your browser. 
+   
+## License
+This project is open-source and available under the MIT License.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contributing
+Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request with your changes.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Acknowledgments
+The project is inspired by various task management tools and aims to provide a simple and clean solution for managing daily tasks.
+   

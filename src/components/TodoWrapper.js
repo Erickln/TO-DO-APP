@@ -5,19 +5,27 @@ import { TodoForm } from './TodoForm';
 import { v4 as uuidv4 } from 'uuid';
 import { EditTodoForm } from './EditTodoForm';
 
+/**
+ * TodoWrapper Component
+ * 
+ * This component manages the state of the TODO list, including adding, editing,
+ * deleting, marking tasks as done or undone, and storing them in local storage.
+ */
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState(() => {
     const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
     return savedTodos.map(todo => ({
       ...todo,
-      startDate: todo.startDate || new Date().toISOString().split('T')[0] // Valor predeterminado si falta
+      startDate: todo.startDate || new Date().toISOString().split('T')[0], // Default start date if missing
     }));
   });
-  
+
+  // Save todos to local storage whenever they change
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
+  // Add a new task
   const addTodo = (task, startDate) => {
     const newTodos = [
       ...todos,
@@ -26,11 +34,13 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Delete a task
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   };
 
+  // Toggle the completion status of a task
   const toggleComplete = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -38,6 +48,7 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Toggle the editing state of a task
   const editTodo = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
@@ -45,6 +56,7 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Edit the details of a task
   const editTask = (task, id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: !todo.isEditing } : todo
@@ -52,6 +64,7 @@ export const TodoWrapper = () => {
     setTodos(newTodos);
   };
 
+  // Mark a task as done and move it to the end of the list
   const markAsDone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
@@ -65,14 +78,13 @@ export const TodoWrapper = () => {
     setTodos([...otherTasks, doneTask]);
   };
 
+  // Mark a task as undone and keep it in its original position
   const markAsUndone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
         ? { ...todo, completed: false, doneDate: null }
         : todo
     );
-
-    // Move the undone task back to its original position
     setTodos(newTodos);
   };
 

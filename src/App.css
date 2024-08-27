@@ -1,6 +1,7 @@
 /* src/App.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+/* General Reset and Font Setup */
 * {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -8,6 +9,7 @@
   box-sizing: border-box;
 }
 
+/* Body and Container Styling */
 body, .container {
   font-size: 1rem;
   width: 100%;
@@ -17,51 +19,45 @@ body, .container {
 }
 
 body {
-  background: #0a1f44; /* Dark blue tone */
+  background: #0a1f44; /* Dark blue background */
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  width: 100%;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) grayscale(100%) brightness(100%) contrast(100%);
 }
 
-
+/* Card Styling */
 .card {
-  background-color: #294881; /* Slightly lighter dark blue for task cards */
+  background-color: #294881; /* Darker blue for cards */
   border-radius: 13px;
   box-shadow: 0 4px 6px rgba(235, 197, 197, 0.1);
   margin-bottom: 20px;
   font-size: 1.2rem;
 }
 
+/* Button Styling */
 .btn {
-  background-color: #1b6ec0; /* Bright blue for buttons */
+  background-color: #1b6ec0;
   color: #ffffff;
-  /* Put the button on the right without floating */
-  
   margin-left: 80%;
-  
-  
   border-radius: 13px;
-
-  font-size: 1rem; /* Adjust button font size */
+  font-size: 1rem;
 }
 
+/* Wrapper for Todos */
 .todo-wrapper {
-  width: 100%; /* Ensure the wrapper uses full width available */
-  max-width: none; /* Remove any max-width constraints */
-  margin: 0 auto; /* Center the wrapper horizontally */
-  padding: 20px; /* Add some padding inside the wrapper */
-  box-sizing: border-box; /* Ensure padding and border are included in width */
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* src/App.css */
-
+/* Task Header for Icons */
 .task-header {
   display: flex;
   justify-content: space-between;
@@ -70,65 +66,62 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .icons {
   display: flex;
-  color: #ffffff; /* Match the card text color */
-}
-
-.icons .btn-flat {
-  margin-left: 10px; /* Add space between icons if needed */
   color: #ffffff;
 }
 
-/* src/App.css */
+.icons .btn-flat {
+  margin-left: 10px;
+  color: #ffffff;
+}
 
+/* Input Styling */
 .form-input {
-  font-size: 1.2rem; /* Match the card font size */
-  color: #ffffff; /* Match the card text color */
+  font-size: 1.2rem;
+  color: #ffffff;
 }
 
 .form-input input[type="date"] {
-  color: #ffffff; /* Match the card text color for date input */
+  color: #ffffff;
 }
 
+/* Save Button Styling */
 .btn-save {
-  background-color: #1b6ec0; /* Match the button color */
-  color: #ffffff; /* Match the button text color */
+  background-color: #1b6ec0;
+  color: #ffffff;
   border-radius: 13px;
-  font-size: 1rem; /* Match button font size */
+  font-size: 1rem;
 }
 
-/* src/App.css */
-
+/* Textarea Placeholder Styling */
 textarea::placeholder {
-  font-size: 1.4rem; /* Match font size with textarea */
-  color: #ffffff; /* Match font color with textarea */
+  font-size: 1.4rem;
+  color: #ffffff;
 }
 
-/* Add these styles to src/App.css */
-
-/* Style for the EditTodoForm to match card styling */
+/* Edit Todo Form Styling */
 .edit-todo-form {
-  background-color: #294881; /* Match the card background color */
-  color: #ffffff; /* White text color */
+  background-color: #294881;
+  color: #ffffff;
   border-radius: 13px;
   padding: 20px;
   margin-bottom: 20px;
-  font-size: 1.2rem; /* Match the font size of the cards */
+  font-size: 1.2rem;
 }
 
-/* Increase the size of the placeholder text as the text is added */
+/* Input Placeholder Styling */
 input::placeholder {
   font-size: 1.2rem;
   color: #ffffff;
 }
 
-/* src/App.css */
+/* Completed Task Styling */
 .completed {
   text-decoration: line-through;
-  color: #c0c4cf; /* Optional: A lighter color for completed tasks */
+  color: #c0c4cf;
 }
 
-/* src/App.css */
+/* Date Text Styling */
 .date-text {
-  font-size: 0.9rem; /* Adjust this value as needed */
-  color: #b0b3c1; /* Optional: A slightly lighter color for dates */
+  font-size: 0.9rem;
+  color: #b0b3c1;
 }
