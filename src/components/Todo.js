@@ -15,6 +15,16 @@ export const Todo = ({
   onDragOver,
   onDrop,
 }) => {
+
+  // Handle the double-click event to toggle done/undone and update the doneDate
+  const handleDoubleClick = () => {
+    if (task.completed) {
+      markAsUndone(task.id);
+    } else {
+      markAsDone(task.id);
+    }
+  };
+
   // Prevent event propagation when clicking buttons
   const handleButtonClick = (e) => {
     e.stopPropagation(); // Prevents click events from bubbling up to parent elements
@@ -28,6 +38,7 @@ export const Todo = ({
       onDragStart={(e) => onDragStart(e, task.id)}
       onDragOver={(e) => onDragOver(e)}
       onDrop={(e) => onDrop(e, task.id)}
+      onDoubleClick={handleDoubleClick} // Reintroducing double-click event
     >
       <div className="card-content white-text">
         <div style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex' }}>
