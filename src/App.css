@@ -34,7 +34,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .btn {
   background-color: #1b6ec0;
   color: #ffffff;
-  margin-left: 80%;
+  /*Make button be in the entire row*/
+  display: block;
+  width: 100%;
   border-radius: 13px;
   font-size: 1rem;
 }
@@ -146,3 +148,19 @@ input::placeholder {
   overflow: hidden;
   text-overflow: ellipsis; /* Truncate with ellipsis if the text is too long */
 }
+
+/* Additional styling for the login page */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #294881; /* Similar to task cards */
+  border-radius: 13px;
+  box-shadow: 0 4px 6px rgba(235, 197, 197, 0.1);
+}
+
+.login-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
