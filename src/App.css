@@ -18,6 +18,7 @@ body, .container {
   min-width: 1200px;
 }
 
+/* Dark Mode Styling */
 body {
   background: #0a1f44; /* Dark blue background */
   display: flex;
@@ -27,14 +28,15 @@ body {
   padding: 20px;
 }
 
+/* Main Container Styling */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) grayscale(100%) brightness(100%) contrast(100%);
 }
+
 /* Button Styling */
 .btn {
   background-color: #1b6ec0;
   color: #ffffff;
-  /*Make button be in the entire row*/
   display: block;
   width: 100%;
   border-radius: 13px;
@@ -44,7 +46,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Wrapper for Todos */
 .todo-wrapper {
   width: 100%;
-  max-width: none;
   margin: 0 auto;
   padding: 20px;
 }
@@ -56,11 +57,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
 }
 
+/* Task Header Text Styling */
 .icons {
   display: flex;
   color: #ffffff;
 }
 
+/* Icon Styling */
 .icons .btn-flat {
   margin-left: 10px;
   margin-bottom: 10px;
@@ -73,17 +76,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #ffffff;
 }
 
+/* Input Styling */
 .form-input input[type="date"] {
   color: #ffffff;
 }
-
 
 /* Apply a max-width and max-height to the textarea */
 textarea {
   width: 100%;
   min-height: 100px;
-  max-width: 100%; /* Prevents from exceeding the container's width */
-  max-height: 300px; /* Adjust this value based on how much you want to allow expansion */
+  max-width: 100%;
+  max-height: 300px;
   box-sizing: border-box;
   overflow: hidden;
   font-size: 1.4rem;
@@ -91,8 +94,9 @@ textarea {
   background-color: #1f2a48;
   padding: 10px;
   border-radius: 8px;
-  resize: vertical; /* Allow only vertical resizing */
+  resize: vertical;
 }
+
 /* Edit Todo Form Styling */
 .edit-todo-form {
   background-color: #294881;
@@ -121,6 +125,7 @@ input::placeholder {
   color: #b0b3c1;
 }
 
+/* Task Card Styling */
 .card {
   background-color: #294881;
   border-radius: 13px;
@@ -130,37 +135,21 @@ input::placeholder {
   transition: transform 0.2s ease;
 }
 
+/* Hover effect for the task card */
 .card:active {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(235, 197, 197, 0.2);
 }
 
+/* Task Card Header Styling */
 .card-over {
   border: 2px dashed #1b6ec0;
-  margin-bottom: 56px; /* Increased margin to show space for the dragged item */
+  margin-bottom: 56px;
 }
 
 /* Task description styling */
 .card-content p {
-  word-wrap: break-word; /* Forces long words to break and wrap to the next line */
-  white-space: pre-wrap; /* Preserves whitespace and wraps text */
-  word-break: break-word; /* Allows words to break at any point if needed */
+  word-wrap: break-word;
   overflow: hidden;
-  text-overflow: ellipsis; /* Truncate with ellipsis if the text is too long */
+  text-overflow: ellipsis;
 }
-
-/* Additional styling for the login page */
-.login-container {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 20px;
-  background-color: #294881; /* Similar to task cards */
-  border-radius: 13px;
-  box-shadow: 0 4px 6px rgba(235, 197, 197, 0.1);
-}
-
-.login-container h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-

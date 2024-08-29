@@ -1,10 +1,14 @@
-// src/components/Todo.js
-
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faCheckCircle, faUndo } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
+/**
+ * Todo Component
+ * 
+ * Displays an individual todo task, with options to edit, delete, mark as done/undone,
+ * and drag-and-drop reordering.
+ */
 export const Todo = ({
   task,
   deleteTodo,
@@ -30,6 +34,7 @@ export const Todo = ({
     e.stopPropagation(); // Prevents click events from bubbling up to parent elements
   };
 
+  /* The Todo component now includes a double-click event handler to toggle the completion status of a task.*/
   return (
     <div
       className={`card ${task.completed ? 'blue-grey darken-1' : 'blue accent-2'}`}

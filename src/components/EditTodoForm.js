@@ -1,4 +1,3 @@
-// src/components/EditTodoForm.js
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -53,6 +52,9 @@ export const EditTodoForm = ({ editTodo, task }) => {
             overflow: 'hidden',
             fontSize: '1.4rem',
             color: 'white',
+            backgroundColor: '#1f2a48',
+            padding: '10px',
+            borderRadius: '8px',
           }}
         />
       </div>
@@ -62,7 +64,14 @@ export const EditTodoForm = ({ editTodo, task }) => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
-          style={{ width: '100%', fontSize: '1.4rem', color: 'white' }}
+          style={{
+            width: '100%',
+            fontSize: '1.4rem',
+            color: 'white',
+            backgroundColor: '#1f2a48',
+            padding: '10px',
+            borderRadius: '8px',
+          }}
         />
       </div>
       <button type="submit" className="btn waves-effect waves-light">
