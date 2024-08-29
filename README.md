@@ -6,13 +6,16 @@ This is a simple yet functional TODO application designed to manage individual t
 ## Features
 
 - **Add Tasks**: Users can add new tasks with a description and a start date.
+- **Start Date Picker**: Users can select a start date for each task using a date picker.
 - **Edit Tasks**: Users can edit existing tasks, including changing the task description and start date.
 - **Delete Tasks**: Users can delete tasks that are no longer needed.
 - **Mark as Done**: Users can mark tasks as completed, which will move them to the end of the list and display the date they were completed.
+- **Done date**: The date the task was completed is displayed in the task card.
 - **Mark as Undone**: Completed tasks can be marked as undone, returning them to their original position in the list.
 - **Drag and Drop Sorting**: Users can reorder tasks within the list by dragging and dropping them.
 - **Responsive Design**: The application is responsive and works well on different screen sizes.
-- **Task Persistence**: Tasks are stored in a MySQL database to persist data across sessions.
+- **Task Persistence**: Tasks are stored in local browser storage to persist data across sessions.
+- **Double-Click to Toggle Completness**: Users can double-click on a task to toggle its completeness.
 
 ## Technologies Used
 
@@ -32,14 +35,13 @@ Ensure you have the following installed:
 
 - **Node.js** (v12 or later)
 - **npm** (v6 or later) or **yarn**
-- **MySQL** (for database setup)
 
 ### Installation
 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/todo-app.git
+   git clone https://github.com/Erickln/TO-DO-APP.git
    ```
 
 2. **Navigate to the project directory:**
@@ -60,33 +62,9 @@ Ensure you have the following installed:
    yarn install
    ```
 
-4. **Set up the MySQL database:**
-
-   - Create a MySQL database and user.
-   - Import the provided database schema to set up the required tables.
-
-5. **Configure the environment variables:**
-
-   - Create a `.env` file in the root directory.
-   - Add your database credentials and other environment variables as needed:
-
-   ```plaintext
-   DB_HOST=your-database-host
-   DB_USER=your-database-username
-   DB_PASSWORD=your-database-password
-   DB_NAME=your-database-name
-   DB_PORT=3306
-   ```
-
 ### Running the Project
 
-1. **Start the backend server:**
-
-   ```bash
-   node server.js
-   ```
-
-2. **Start the development server:**
+1. **Start the development server:**
 
    ```bash
    npm start
@@ -98,7 +76,7 @@ Ensure you have the following installed:
    yarn start
    ```
 
-3. **Open your browser and go to:**
+2. **Open your browser and go to:**
 
    ```http://localhost:3000```
 
@@ -106,7 +84,7 @@ Ensure you have the following installed:
 
 ### Running in Production
 
-1. **Build the React application:**
+**Build the React application:**
 
    ```bash
    npm run build
@@ -116,12 +94,6 @@ Ensure you have the following installed:
 
    ```bash
    yarn build
-   ```
-
-2. **Serve the static files and start the server:**
-
-   ```bash
-   node server.js
    ```
 
    This will start the server and serve the built React app from the `/build` directory.

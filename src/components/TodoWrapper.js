@@ -68,7 +68,11 @@ export const TodoWrapper = () => {
   const markAsDone = (id) => {
     const newTodos = todos.map((todo) =>
       todo.id === id
-        ? { ...todo, completed: true, doneDate: new Date().toISOString().split('T')[0] }
+        ? {
+            ...todo,
+            completed: true,
+            doneDate: new Date(new Date().setHours(0, 0, 0, 0)).toISOString().split('T')[0],
+          }
         : todo
     );
     setTodos(newTodos);
