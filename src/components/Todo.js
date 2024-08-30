@@ -1,11 +1,16 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faCheckCircle, faUndo } from '@fortawesome/free-solid-svg-icons';
-import PropTypes from 'prop-types';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faTrash,
+  faCheckCircle,
+  faUndo,
+} from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 /**
  * Todo Component
- * 
+ *
  * Displays an individual todo task, with options to edit, delete, mark as done/undone,
  * and drag-and-drop reordering.
  */
@@ -19,7 +24,6 @@ export const Todo = ({
   onDragOver,
   onDrop,
 }) => {
-
   // Handle the double-click event to toggle done/undone and update the doneDate
   const handleDoubleClick = () => {
     if (task.completed) {
@@ -37,8 +41,8 @@ export const Todo = ({
   /* The Todo component now includes a double-click event handler to toggle the completion status of a task.*/
   return (
     <div
-      className={`card ${task.completed ? 'blue-grey darken-1' : 'blue accent-2'}`}
-      style={{ position: 'relative', cursor: 'move' }}
+      className={`card ${task.completed ? "blue-grey darken-1" : "blue accent-2"}`}
+      style={{ position: "relative", cursor: "move" }}
       draggable
       onDragStart={(e) => onDragStart(e, task.id)}
       onDragOver={(e) => onDragOver(e)}
@@ -46,31 +50,75 @@ export const Todo = ({
       onDoubleClick={handleDoubleClick} // Reintroducing double-click event
     >
       <div className="card-content white-text">
-        <div style={{ position: 'absolute', bottom: '10px', right: '10px', display: 'flex' }}>
+        {/* Container for action buttons, positioned at the bottom right */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "10px",
+            right: "10px",
+            display: "flex",
+          }}
+        >
+          {/* Conditional rendering of mark as undone button if task is completed */}
           {task.completed ? (
-            <button className="btn-flat" onClick={(e) => { handleButtonClick(e); markAsUndone(task.id); }} style={{ marginLeft: '10px' }}>
-              <FontAwesomeIcon icon={faUndo} />
+            <button
+              className="btn-flat"
+              onClick={(e) => {
+                handleButtonClick(e);
+                markAsUndone(task.id);
+              }}
+              style={{ marginLeft: "10px" }}
+            >
+              <FontAwesomeIcon icon={faUndo} /> {/* Undo icon */}
             </button>
           ) : (
-            <button className="btn-flat" onClick={(e) => { handleButtonClick(e); markAsDone(task.id); }} style={{ marginLeft: '10px' }}>
-              <FontAwesomeIcon icon={faCheckCircle} />
+            <button
+              className="btn-flat"
+              onClick={(e) => {
+                handleButtonClick(e);
+                markAsDone(task.id);
+              }}
+              style={{ marginLeft: "10px" }}
+            >
+              <FontAwesomeIcon icon={faCheckCircle} /> {/* Check circle icon */}
             </button>
           )}
-          <button className="btn-flat" onClick={(e) => { handleButtonClick(e); editTodo(task.id); }} style={{ marginLeft: '10px' }}>
-            <FontAwesomeIcon icon={faPenToSquare} />
+          {/* Edit task button */}
+          <button
+            className="btn-flat"
+            onClick={(e) => {
+              handleButtonClick(e);
+              editTodo(task.id);
+            }}
+            style={{ marginLeft: "10px" }}
+          >
+            <FontAwesomeIcon icon={faPenToSquare} /> {/* Edit icon */}
           </button>
-          <button className="btn-flat" onClick={(e) => { handleButtonClick(e); deleteTodo(task.id); }} style={{ marginLeft: '10px' }}>
-            <FontAwesomeIcon icon={faTrash} />
+          {/* Delete task button */}
+          <button
+            className="btn-flat"
+            onClick={(e) => {
+              handleButtonClick(e);
+              deleteTodo(task.id);
+            }}
+            style={{ marginLeft: "10px" }}
+          >
+            <FontAwesomeIcon icon={faTrash} /> {/* Trash icon */}
           </button>
         </div>
+        {/* Task description with dynamic class based on completion status */}
         <p
-          className={task.completed ? 'completed' : 'incompleted'}
-          style={{ marginRight: 'auto' }}
+          className={task.completed ? "completed" : "incompleted"}
+          style={{ marginRight: "auto" }}
         >
           {task.task}
         </p>
+        {/* Display start date of the task */}
         <p className="date-text">Start Date: {task.startDate}</p>
-        {task.completed && <p className="date-text">Done Date: {task.doneDate}</p>}
+        {/* Conditional rendering of done date if task is completed */}
+        {task.completed && (
+          <p className="date-text">Done Date: {task.doneDate}</p>
+        )}
       </div>
     </div>
   );

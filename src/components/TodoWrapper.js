@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Todo } from './Todo'; // Import the Todo component
-import { TodoForm } from './TodoForm'; // Import the TodoForm component
-import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique IDs
-import { EditTodoForm } from './EditTodoForm'; // Import the EditTodoForm component
+import React, { useState, useEffect } from "react";
+import { Todo } from "./Todo"; // Import the Todo component
+import { TodoForm } from "./TodoForm"; // Import the TodoForm component
+import { v4 as uuidv4 } from "uuid"; // Import uuid for generating unique IDs
+import { EditTodoForm } from "./EditTodoForm"; // Import the EditTodoForm component
 
 /**
  * TodoWrapper Component
- * 
+ *
  * Manages the list of todos, including adding, editing, deleting, and reordering tasks.
  * Persists tasks in local storage.
  */
 export const TodoWrapper = () => {
   // Initialize todos from local storage, or set up an empty list if not found
   const [todos, setTodos] = useState(() => {
-    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    return savedTodos.map(todo => ({
+    const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    return savedTodos.map((todo) => ({
       ...todo,
-      startDate: todo.startDate || new Date().toISOString().split('T')[0], // Default start date if missing
+      startDate: todo.startDate || new Date().toISOString().split("T")[0], // Default start date if missing
     }));
   });
 
   // Persist todos in local storage whenever the todos state changes
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   // Add a new todo task
@@ -59,7 +59,14 @@ export const TodoWrapper = () => {
   // Update a task's description and start date
   const editTask = (task, id) => {
     const newTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, task: task.task, startDate: task.startDate, isEditing: false } : todo
+      todo.id === id
+        ? {
+            ...todo,
+            task: task.task,
+            startDate: task.startDate,
+            isEditing: false,
+          }
+        : todo
     );
     setTodos(newTodos);
   };
@@ -71,7 +78,9 @@ export const TodoWrapper = () => {
         ? {
             ...todo,
             completed: true,
-            doneDate: new Date(new Date().setHours(0, 0, 0, 0)).toISOString().split('T')[0],
+            doneDate: new Date(new Date().setHours(0, 0, 0, 0))
+              .toISOString()
+              .split("T")[0],
           }
         : todo
     );
@@ -81,9 +90,7 @@ export const TodoWrapper = () => {
   // Mark a task as undone and remove its done date
   const markAsUndone = (id) => {
     const newTodos = todos.map((todo) =>
-      todo.id === id
-        ? { ...todo, completed: false, doneDate: null }
-        : todo
+      todo.id === id ? { ...todo, completed: false, doneDate: null } : todo
     );
     setTodos(newTodos);
   };
@@ -106,14 +113,16 @@ export const TodoWrapper = () => {
   // Handle dragging over another todo item
   const handleDragOver = (e) => {
     e.preventDefault();
-    console.log('Dragging over a todo');
+    console.log("Dragging over a todo");
   };
 
   // Handle dropping a todo item on another
   const handleDrop = (e, id) => {
     e.preventDefault();
     const draggedTodoId = e.dataTransfer.getData("text/plain");
-    const draggedTodoIndex = todos.findIndex((todo) => todo.id === draggedTodoId);
+    const draggedTodoIndex = todos.findIndex(
+      (todo) => todo.id === draggedTodoId
+    );
     const targetTodoIndex = todos.findIndex((todo) => todo.id === id);
 
     if (draggedTodoIndex !== -1 && targetTodoIndex !== -1) {
@@ -122,13 +131,17 @@ export const TodoWrapper = () => {
       updatedTodos.splice(targetTodoIndex, 0, draggedTodo);
 
       setTodos(updatedTodos);
-      localStorage.setItem('todos', JSON.stringify(updatedTodos));
-      console.log('Todos reordered:', updatedTodos);
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
+      console.log("Todos reordered:", updatedTodos);
     }
   };
 
   return (
-    <div className="section" onClick={cancelAllEdits} style={{ cursor: 'default' }}>
+    <div
+      className="section"
+      onClick={cancelAllEdits}
+      style={{ cursor: "default" }}
+    >
       <TodoForm addTodo={addTodo} /> {/* Form to add new todos */}
       <div className="row" onClick={(e) => e.stopPropagation()}>
         {todos.map((todo) =>

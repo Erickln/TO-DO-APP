@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 
 /**
  * EditTodoForm Component
- * 
+ *
  * This component allows users to edit an existing TODO task. It includes a textarea
  * for editing the task's description and a date input for changing the start date of the task.
  */
@@ -20,7 +20,7 @@ export const EditTodoForm = ({ editTodo, task }) => {
   // Adjust textarea height based on content
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
-    textarea.style.height = 'auto'; // Reset height to auto
+    textarea.style.height = "auto"; // Reset height to auto
     textarea.style.height = `${textarea.scrollHeight}px`; // Adjust height based on scrollHeight
   };
 
@@ -46,15 +46,15 @@ export const EditTodoForm = ({ editTodo, task }) => {
           className="validate"
           placeholder="Update task"
           style={{
-            width: '100%',
-            minHeight: '100px',
-            boxSizing: 'border-box',
-            overflow: 'hidden',
-            fontSize: '1.4rem',
-            color: 'white',
-            backgroundColor: '#1f2a48',
-            padding: '10px',
-            borderRadius: '8px',
+            width: "100%",
+            minHeight: "100px",
+            boxSizing: "border-box",
+            overflow: "hidden",
+            fontSize: "1.4rem",
+            color: "white",
+            backgroundColor: "#1f2a48",
+            padding: "10px",
+            borderRadius: "8px",
           }}
         />
       </div>
@@ -65,12 +65,12 @@ export const EditTodoForm = ({ editTodo, task }) => {
           onChange={(e) => setStartDate(e.target.value)}
           className="validate"
           style={{
-            width: '100%',
-            fontSize: '1.4rem',
-            color: 'white',
-            backgroundColor: '#1f2a48',
-            padding: '10px',
-            borderRadius: '8px',
+            width: "100%",
+            fontSize: "1.4rem",
+            color: "white",
+            backgroundColor: "#1f2a48",
+            padding: "10px",
+            borderRadius: "8px",
           }}
         />
       </div>

@@ -20,7 +20,6 @@ This is a simple yet functional TODO application designed to manage individual t
 ## Technologies Used
 
 - **React**: The project is built using React, a popular JavaScript library for building user interfaces.
-- **Node.js & Express**: Backend services are handled by Node.js and Express, providing APIs for authentication and task management.
 - **Materialize CSS**: The UI is styled using Materialize CSS, a modern responsive front-end framework based on Material Design.
 - **FontAwesome**: Icons are provided by FontAwesome, a widely used icon library.
 - **ESLint**: The project uses ESLint for maintaining consistent code style and catching errors early.
